@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/views/pages/homepage.dart';
+// import 'package:twitter_clone/views/pages/profilepage.dart';
 import 'package:twitter_clone/views/pages/searchpage.dart';
 import 'package:twitter_clone/views/pages/massegepage.dart';
 import 'package:twitter_clone/views/pages/notificationpage.dart';
@@ -23,8 +24,7 @@ class _BottombarState extends State<Bottombar> {
     Homepage(),
     Searchpage(),
     Notificationpage(),
-    Massegepage(),
-
+    Massegepage()
   ];
 
   @override
