@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:twitter_clone/views/pages/profilepage.dart';
+
+import 'newTwitte.dart';
 // import 'package:twitter_clone/views/pages/massegepage.dart';
 
 class Homepage extends StatefulWidget {
@@ -85,7 +87,10 @@ class _HomepageState extends State<Homepage> {
             ],
           )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewTweet()));
+        },
         backgroundColor: Colors.blue,
         child: const Icon(
           FontAwesomeIcons.featherPointed,
