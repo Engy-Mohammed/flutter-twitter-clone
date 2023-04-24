@@ -16,23 +16,17 @@ class NewTweet extends StatefulWidget {
 }
 
 class _NewTweetState extends State<NewTweet> {
-   bool _isButtonDisabled = true;
+  bool _isButtonDisabled = true;
   final _textEditingController = TextEditingController();
   File? _image;
   File? _video;
- File? _imageFile;
- List<XFile>? _imageFileList;
- final ImagePicker _picker = ImagePicker();
- void _setImageFileListFromFile(XFile? value) {
+  File? _imageFile;
+  List<XFile>? _imageFileList;
+  final ImagePicker _picker = ImagePicker();
+  void _setImageFileListFromFile(XFile? value) {
     _imageFileList = value == null ? null : <XFile>[value];
   }
-   
 
-
-
-
-
-   
   Future<void> _getImage() async {
     // final pickedFile =
     //     await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -44,7 +38,8 @@ class _NewTweetState extends State<NewTweet> {
     //   }
     // });
 
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -63,15 +58,12 @@ class _NewTweetState extends State<NewTweet> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('New Tweet'),
       ),
-      
       body: Column(
         children: <Widget>[
           const SizedBox(height: 20),
@@ -82,7 +74,8 @@ class _NewTweetState extends State<NewTweet> {
               onChanged: (text) {
                 setState(() {
                   _isButtonDisabled = text.isEmpty;
-                });},
+                });
+              },
               decoration: const InputDecoration(
                 hintText: 'What\'s happening?',
               ),
@@ -107,19 +100,17 @@ class _NewTweetState extends State<NewTweet> {
                 onPressed: _getVideo,
                 icon: const Icon(Icons.video_call),
               ),
-        
-           ElevatedButton(
-          onPressed:_isButtonDisabled
-                  ? null
-                  : (){Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Homepage()));},
-              
-          child: Text('tweet'),
-        ),
-        
-
-
-
+              ElevatedButton(
+                onPressed: _isButtonDisabled
+                    ? null
+                    : () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Homepage()));
+                      },
+                child: Text('tweet'),
+              ),
             ],
           ),
         ],

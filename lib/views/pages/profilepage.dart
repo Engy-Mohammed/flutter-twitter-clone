@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../bottombar.dart';
+import 'editProfile.dart';
 
 class Profilepage extends StatefulWidget {
   const Profilepage({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _ProfilepageState extends State<Profilepage> {
       body: ListView(
         physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics()),
-        children: [coverimage(), profile() ],
+        children: [coverimage(), profile()],
       ),
     );
   }
@@ -58,10 +59,14 @@ class _ProfilepageState extends State<Profilepage> {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditProfileScreen()));
+                  },
                   child: Text('Edit Profile',
-                      style: TextStyle(color: Colors.blue)
-                  ))
+                      style: TextStyle(color: Colors.blue)))
             ],
           ),
           SizedBox(
@@ -130,177 +135,175 @@ class _ProfilepageState extends State<Profilepage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-        length: 4, 
+        length: 4,
         child: Scaffold(
-          appBar: PreferredSize(preferredSize: size*0.95,
-          child: Container(
-            child: SafeArea(child:  Column(
-              children:const<Widget>[
-                TabBar(
-                  tabs: [
-                    Text("Tweets"),
-                    Text("Replies"),
-                    Text("Media"),
-                    Text("Likes"),
-                  ],
-                  unselectedLabelColor: Colors.black,
-                  indicatorColor: Colors.blue,
-                  labelColor: Colors.blue,
-                  isScrollable: true,
-                )
-
-              ],
-            )),
-          ),),
+          appBar: PreferredSize(
+            preferredSize: size * 0.95,
+            child: Container(
+              child: SafeArea(
+                  child: Column(
+                children: const <Widget>[
+                  TabBar(
+                    tabs: [
+                      Text("Tweets"),
+                      Text("Replies"),
+                      Text("Media"),
+                      Text("Likes"),
+                    ],
+                    unselectedLabelColor: Colors.black,
+                    indicatorColor: Colors.blue,
+                    labelColor: Colors.blue,
+                    isScrollable: true,
+                  )
+                ],
+              )),
+            ),
+          ),
           body: TabBarView(children: [
-             Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 200,
-                    width: 270,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/twitternotefic.png'),
-                      ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 200,
+                  width: 270,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/twitternotefic.png'),
                     ),
                   ),
-                    Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                       Text(
-                          'Nothing to see here — \nyet',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    
-                      SizedBox(
-                        height: 10,
-                      ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
                     Text(
-                          "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 200,
-                    width: 270,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/twitternotefic.png'),
+                      'Nothing to see here — \nyet',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                    Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                       Text(
-                          'Nothing to see here — \nyet',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    
-                      SizedBox(
-                        height: 10,
-                      ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
-                          "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 200,
-                    width: 270,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/twitternotefic.png'),
+                      "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey,
                       ),
                     ),
-                  ),
-                    Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                       Text(
-                          'Nothing to see here — \nyet',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    
-                      SizedBox(
-                        height: 10,
-                      ),
-                    Text(
-                          "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 200,
-                    width: 270,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/twitternotefic.png'),
-                      ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 200,
+                  width: 270,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/twitternotefic.png'),
                     ),
                   ),
-                    Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                       Text(
-                          'Nothing to see here — \nyet',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    
-                      SizedBox(
-                        height: 10,
-                      ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
                     Text(
-                          "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                    ],
+                      'Nothing to see here — \nyet',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 200,
+                  width: 270,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/twitternotefic.png'),
+                    ),
                   ),
-                ],
-              ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Nothing to see here — \nyet',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 200,
+                  width: 270,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/twitternotefic.png'),
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Nothing to see here — \nyet',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Likes, mentions, Retweets, and a whole lot more\n — when it comes from a verified account, you'll\n find it here.",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ]),
         ),
       ),

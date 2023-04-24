@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone/views/pages/editProfile.dart';
 import 'package:twitter_clone/views/pages/homepage.dart';
 import 'package:twitter_clone/views/pages/newTwitte.dart';
 import 'package:twitter_clone/views/pages/splashpage.dart';
-import 'package:twitter_clone/views/pages/tweet.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // theme: ThemeData(
       //   useMaterial3:true,
-      // ), 
+      // ),
       debugShowCheckedModeBanner: false,
-     // home:Splashpage(),
-     home:Homepage(),
+      // home:Splashpage(),
+      home: Homepage(),
+      // home: EditProfileScreen (),
     );
   }
 }
-
- 
