@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:twitter_clone/views/pages/editProfile.dart';
 import 'package:twitter_clone/views/pages/homepage.dart';
 import 'package:twitter_clone/views/pages/newTwitte.dart';
-import 'package:twitter_clone/views/pages/splashpage.dart';
+
+import 'package:twitter_clone/views/pages/uploadImage.dart';
 
 
 void main() {
@@ -19,9 +20,9 @@ class MyApp extends StatelessWidget {
       //   useMaterial3:true,
       // ),
       debugShowCheckedModeBanner: false,
-      // home:Splashpage(),
+      
       home: Homepage(),
-      // home: EditProfileScreen (),
+    //  home:UploadVideo(),
     );
   }
 }
