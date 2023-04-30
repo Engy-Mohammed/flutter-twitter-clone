@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -9,6 +9,8 @@ import 'package:twitter_clone/views/pages/homepage.dart';
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:http_parser/http_parser.dart';
+
 
 class NewTweet extends StatefulWidget {
   const NewTweet({super.key});
@@ -32,6 +34,7 @@ class _NewTweetState extends State<NewTweet> {
 
     setState(() {
       _imageFile = File(pickedFile!.path);
+      print(_imageFile!.path);
     });
   }
 
@@ -57,28 +60,141 @@ class _NewTweetState extends State<NewTweet> {
         });
       _fileSelected = true;
     });
+
+    print(_fileInput!.files.toString());
   }
+
+  // void CreateTweet(String content) async {
+  //   var url = Uri.http('localhost:8000', 'api/tweet/create');
+
+  //   var response = await http.post(url, body: {
+  //     'content': content,
+  //     'user': '1',
+  //      "media": [
+  //           {"file": "loclhost:8000/api/media/tweet_media/${_imageFile!.path}"},
+
+  //           {"file": "loclhost:8000/api/media/tweet_media/${_fileInput!.files}"},
+
+  //       ]
+  //   }, headers: {
+  //     'Authorization': 'Bearer dbuKGoxXiEtt7lrll7zaqmXkzjEwpC',
+  //   });
+  //   print(content);
+
+  //   if (response.statusCode == 201) {
+  //     print('Tweet created successfully!');
+  //     content = '';
+
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => Homepage()));
+  //   } else {
+  //     print('Error creating tweet: ${response.statusCode}');
+  //   }
+  // }
 
   void CreateTweet(String content) async {
-    var url = Uri.http('localhost:8000', 'api/tweet/create');
+  var url = Uri.http('localhost:8000', 'api/tweet/create');
 
-    var response = await http.post(url, body: {
-      'content': content,
-      'user': '1'
-    }, headers: {
-      'Authorization': 'Bearer dbuKGoxXiEtt7lrll7zaqmXkzjEwpC',
-    });
-    print(content);
-    if (response.statusCode == 201) {
-      print('Tweet created successfully!');
-      content = '';
+  var imageBytes, videoBytes;
+  String? imageBase64, videoBase64;
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Homepage()));
-    } else {
-      print('Error creating tweet: ${response.statusCode}');
-    }
+  if (_imageFile != null) {
+    imageBytes = await _imageFile!.readAsBytes();
+    imageBase64 = base64.encode(imageBytes);
   }
+
+  // if (_video != null) {
+  //   videoBytes = await _video!.readAsBytes();
+  //   videoBase64 = base64.encode(videoBytes);
+  // }
+
+  var response = await http.post(
+    url,
+    body: {
+      'content': content,
+      'user': '1',
+      'media':[{'file':_imageFile}]
+      // 'media': json.encode([
+      //   if (imageBase64 != null)
+      //     {
+      //       'file': imageBase64,
+      //       'type': 'image',
+      //       'extension': _imageFile!.path.split('.').last,
+      //     },
+      //   if (videoBase64 != null)
+      //     {
+      //       'file': videoBase64,
+      //       'type': 'video',
+      //       'extension': _video!.path.split('.').last,
+      //     },
+      // ]),
+      
+    },
+    headers: {
+      'Content-Type':'multipart/form-data',
+      'Authorization': 'Bearer zsWR1aZVLGJW6kcYd92VCaKgQKN4Oz',
+    },
+  );
+
+  if (response.statusCode == 201) {
+    print('Tweet created successfully!');
+    content = '';
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Homepage()),
+    );
+  } else {
+    print('Error creating tweet: ${response.statusCode}');
+  }
+}
+
+  // void CreateTweet(String content) async {
+  //   var url = Uri.http('localhost:8000', 'api/tweet/create');
+
+  //   var request = myhttp.MultipartRequest('POST', url)
+  //     ..fields['content'] = content
+  //     ..fields['user'] = '1';
+
+  //   if (_imageFile != null) {
+  //     var imageBytes = await _imageFile!.readAsBytes();
+  //     var imageFile = http.MultipartFile.fromBytes(
+  //       'media[{}]',
+  //       imageBytes,
+  //       filename: _imageFile!.path.split('/').last,
+  //       contentType: MediaType('image', _imageFile!.path.split('.').last),
+  //     );
+  //     request.files.add(imageFile);
+  //     print("image added${imageFile}");
+  //   }
+
+  //   // if (_video != null) {
+  //   //   var videoBytes = await _video!.readAsBytes();
+  //   //   var videoFile = http.MultipartFile.fromBytes(
+  //   //     'media[]',
+  //   //     videoBytes,
+  //   //     filename: _video!.path.split('/').last,
+  //   //     contentType: MediaType('video', _video!.path.split('.').last),
+  //   //   );
+  //   //   request.files.add(videoFile);
+  //   //   print("video added${videoFile}");
+  //   // }
+
+  //   request.headers['Authorization'] = 'Bearer zsWR1aZVLGJW6kcYd92VCaKgQKN4Oz';
+
+  //   var response = await request.send();
+  //   if (response.statusCode == 201) {
+  //     print('Tweet created successfully!');
+  //     content = '';
+
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => Homepage()),
+  //     );
+  //   } else {
+  //     print('Error creating tweet: ${response.statusCode}');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +263,7 @@ class _NewTweetState extends State<NewTweet> {
                 Container(
                   width: 300,
                   height: 210,
-
-                  margin:EdgeInsets.all(10) ,
+                  margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(width: 1, color: Colors.grey),
                   ),
